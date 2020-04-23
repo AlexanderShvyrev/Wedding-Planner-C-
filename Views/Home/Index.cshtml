@@ -1,0 +1,45 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model User
+<partial name="_Nav"></partial>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 register">
+            <h1>Register</h1>
+                <form asp-action="Register" method="post" class="form-group">
+                    <p>
+                        <p><span asp-validation-for="FirstName" class="text-danger">  </span></p>
+                        <label asp-for="FirstName"></label>
+                        <input  asp-for="FirstName" class="form-control">
+                    </p>
+                    <p>
+                        <p><span asp-validation-for="LastName" class="text-danger">  </span></p>
+                        <label asp-for="LastName"></label>
+                        <input  asp-for="LastName" class="form-control">
+                    </p>
+                    <p>
+                        <p><span asp-validation-for="Email" class="text-danger">  </span></p>
+                        <label asp-for="Email"></label>
+                        <input  asp-for="Email" class="form-control" >
+                    </p>
+                    <p>
+                        <p><span asp-validation-for="Password" class="text-danger">  </span></p>
+                        <label asp-for="Password"></label>
+                        <input  asp-for="Password" class="form-control" >
+                    </p>
+                    <p>
+                        <p><span asp-validation-for="Confirm" class="text-danger">  </span></p>
+                        <label asp-for="Confirm"></label>
+                        <input  asp-for="Confirm" class="form-control" >
+                    </p>
+                    <p>
+                        <input  type="submit"class="btn btn-outline-primary btn-block" >
+                    </p>
+                </form>
+    
+    </div> <!-- card.// -->
+    <div class="col-lg-6">
+        <partial name="_Login" model="new LoginUser()"></partial> 
+</div>
+ 

@@ -1,0 +1,42 @@
+
+@model List<Wedding>
+<div class="jumbotron">
+    <a href="Logout" class="btn btn-sm btn-dark mb-5">Logout</a>
+    <a href="/wedding/new" class="btn btn-lg btn-success mb-5">Add Wedding </a>
+    <h1>Welcome to the Wedding Planner</h1>
+</div>
+<table class="table table-striped"> 
+    <thead>
+        <tr>
+            <th>Wedding</th>
+            <th>Date</th>
+            <th># of Guests</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var wedding in Model)
+        {
+            <tr>
+                <td><a href="/show/@wedding.WedId">@wedding.WedderOne & @wedding.WedderTwo</a></td>
+                <td>@wedding.WeddingDate</td>
+                <td>@wedding.Guests.Count</td>
+                <td>
+                @if(wedding.Creator.UserId == ViewBag.User.UserId)
+                {
+                    <a href="/Cancel/@wedding.WedId" role="button">Cancel</a>
+                }else{
+                    if(wedding.Guests.All(g=>g.UserId != ViewBag.User.UserId)){
+                    <a href="/Join/@wedding.WedId/@ViewBag.User.UserId" role="button">RSVP</a>
+                }
+                if(wedding.Guests.Any(s=>s.UserId == ViewBag.User.UserId)){
+                    <a href="/notGoing/@wedding.WedId/@ViewBag.User.UserId" role="button">UN RSVP</a>
+                    
+                }
+                }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

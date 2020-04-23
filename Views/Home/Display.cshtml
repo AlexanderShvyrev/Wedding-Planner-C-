@@ -1,0 +1,88 @@
+@model Wedding
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+    #map {
+    height: 50%;
+    border: 1px solid black;
+    position: static;
+    top: 70px;
+    right: 15px;
+    }
+    
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <div class="jumbotron">
+    <h2>@Model.WedderOne and @Model.WedderTwo's Wedding</h2>
+    <h3 id="address">Adress: @Model.Address</h3>
+    <a href="/Logout" class="btn btn-lg btn-dark mb-5">Logout</a>
+    <a href="/dashboard" class="btn btn-lg btn-success mb-5">Dashboard </a>
+    <p>@Model.WeddingDate</p>
+    <ul>
+    @foreach(var g in Model.Guests)
+    {
+        <li>@g.NavUser.FirstName @g.NavUser.LastName</li>
+    }    
+    </ul>
+    </div>
+    
+    <div style="position:absolute; height:100%; width:20%; padding:0px;">
+        <div id="map"></div>
+    </div>
+    <script>
+        var map;
+        var service;
+        var infowindow;
+
+        function initMap() {
+        var sydney = new google.maps.LatLng(-33.867, 151.195);
+
+        infowindow = new google.maps.InfoWindow();
+
+        map = new google.maps.Map(
+            document.getElementById('map'), {center: sydney, zoom: 15});
+
+        var request = {
+            query: '@Model.Address',
+            fields: ['name', 'geometry'],
+        };
+
+        service = new google.maps.places.PlacesService(map);
+
+        service.findPlaceFromQuery(request, function(results, status) {
+            if (status === google.maps.places.PlacesServiceStatus.OK) {
+            for (var i = 0; i < results.length; i++) {
+                createMarker(results[i]);
+            }
+
+            map.setCenter(results[0].geometry.location);
+            }
+        });
+        }
+
+        function createMarker(place) {
+        var marker = new google.maps.Marker({
+            map: map,
+            position: place.geometry.location
+        });
+
+        google.maps.event.addListener(marker, 'click', function() {
+            infowindow.setContent(place.name);
+            infowindow.open(map, this);
+            });
+        }
+    </script>
+    
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRzX9-FP5ZEITaMWr6Uwywfi6H3dTfj1A&libraries=places&callback=initMap">
+    </script>
+</body>
+</html>
+

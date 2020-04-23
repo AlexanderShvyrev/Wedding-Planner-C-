@@ -1,0 +1,41 @@
+@model Wedding
+<div class="jumbotron">
+    <a href="Logout" class="btn btn-sm btn-dark mb-5">Logout</a>
+    <a href="/dashboard" class="btn btn-lg btn-primary mb-5">Dashboard </a>
+    <h1>Welcome to the Wedding Planner</h1>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-5">
+            <h1>Plan Your Wedding</h1>
+            <form asp-action="Create" class="form-group">
+                <p>
+                    <p><span asp-validation-for="WedderOne" class="text-danger"></span></p>
+                    <label asp-for="WedderOne"></label>
+                    <input asp-for="WedderOne" class="form-control">
+                </p>
+                <p>
+                    <p><span asp-validation-for="WedderTwo" class="text-danger"></span></p>
+                    <label asp-for="WedderTwo"></label>
+                    <input asp-for="WedderTwo" class="form-control">
+                </p>
+                <p>
+                    <p><span asp-validation-for="WeddingDate" class="text-danger"></span></p>
+                    <label asp-for="WeddingDate"></label>
+                    <input asp-for="WeddingDate" class="form-control">
+                </p>
+                <p>
+                    <p><span asp-validation-for="Address" class="text-danger"></span></p>
+                    <label asp-for="Address"></label>
+                    <input asp-for="Address" class="form-control">
+                </p>
+                <p>
+                    <input type="submit" class="btn btn-warning btn-md">
+                </p>
+            </form>
+        </div>
+        <div class="col-md-5"></div>
+
+
+    </div>
+</div>
